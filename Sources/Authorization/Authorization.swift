@@ -6,9 +6,9 @@ import Swift
 public struct Authorization {
     
     public enum Error: Swift.Error {
-        case create
-        case copyRights
-        case exec
+        case create(OSStatus)
+        case copyRights(OSStatus)
+        case exec(OSStatus)
     }
     
     public static func executeWithPrivileges(
@@ -31,7 +31,7 @@ public struct Authorization {
         var authorizationRef: AuthorizationRef? = nil
         var err = AuthorizationCreate(nil, nil, [], &authorizationRef)
         guard err == errAuthorizationSuccess else {
-            return .failure(.create)
+            return .failure(.create(err))
         }
         defer { AuthorizationFree(authorizationRef!, [.destroyRights]) }
         
@@ -71,7 +71,7 @@ public struct Authorization {
             nil
         )
         guard err == errAuthorizationSuccess else {
-            return .failure(.copyRights)
+            return .failure(.copyRights(err))
         }
         
         let rest = components.map { $0.cString(using: .utf8)! }
@@ -101,7 +101,7 @@ public struct Authorization {
             return (err, fh)
         }
         guard err == errAuthorizationSuccess else {
-            return .failure(.exec)
+            return .failure(.exec(err))
         }
         return .success(fh!)
     }
