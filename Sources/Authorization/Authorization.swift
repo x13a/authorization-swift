@@ -80,9 +80,7 @@ public struct Authorization {
             count: rest.count + 1
         )
         for (idx, arg) in rest.enumerated() {
-            arg.withUnsafeBufferPointer { buf in
-                args[idx] = buf.baseAddress!
-            }
+            args[idx] = UnsafePointer<CChar>?(arg)
         }
         
         var file = FILE()
