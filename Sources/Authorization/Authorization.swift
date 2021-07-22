@@ -2,6 +2,7 @@ import Foundation
 import Swift
 
 // https://github.com/sveinbjornt/STPrivilegedTask/blob/master/STPrivilegedTask.m
+// https://github.com/gui-dos/Guigna/blob/9fdd75ca0337c8081e2a2727960389c7dbf8d694/Legacy/Guigna-Swift/Guigna/GAgent.swift#L42-L80
 
 public struct Authorization {
     
