@@ -41,7 +41,7 @@ public struct Authorization {
         let name = kAuthorizationRightExecute.cString(using: .utf8)!
         
         var items: AuthorizationItem = name.withUnsafeBufferPointer { nameBuf in
-            return path.withUnsafeBufferPointer { pathBuf in
+            path.withUnsafeBufferPointer { pathBuf in
                 let pathPtr =
                     UnsafeMutableRawPointer(mutating: pathBuf.baseAddress!)
                 return AuthorizationItem(
